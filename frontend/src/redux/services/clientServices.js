@@ -53,7 +53,7 @@ export function listClientService() {
 }
 export function deleteClientService(clientId)
 {
-  //  console.log(clientId);
+   //console.log(this.props);
     return dispatch => {
         var OPTIONS = {
            url: "http://localhost:4000/clients/deleteclient",
@@ -68,7 +68,7 @@ export function deleteClientService(clientId)
            .then(response  => {
            //return  dispatch(deleteClient(JSON.stringify(response.data)))
          //  console.log(this.state);
-        //   return  dispatch(fetchClient())
+          return  dispatch(deleteClient(clientId));
 
            })
            .catch(error => {
@@ -118,7 +118,7 @@ export function updateClientService(clientId, clientName) {
         .then(response  => {
           console.log(JSON.stringify(response.data));
          // listClientService();
-          return  dispatch(fetchClient())
+         return  dispatch(editClient(JSON.stringify(response.data)))
         })
         .catch(error => {
             return  dispatch(dbError(error))

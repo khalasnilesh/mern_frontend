@@ -12,7 +12,6 @@ const initialState={
 export default function clientReducer(state = initialState , action)
 {
    
-   // console.log(action.payload.message);
     switch(action.type)
     {
         case "ADD_CLIENT":
@@ -24,12 +23,19 @@ export default function clientReducer(state = initialState , action)
                 ...state,allClients:JSON.parse(action.payload).data, msg:'' , act: 'list'
             }
         case "EDIT_CLIENT":
+            
+            if(JSON.parse(action.payload).message != 'CLient data listing successfully!!')
+            {
+              var  msg = 'Profile Updated Successfully';
+            }
             return {
-                ...state,allClients:JSON.parse(action.payload).data[0], msg:'' , act : 'Edit'
+                ...state,allClients:JSON.parse(action.payload).data[0], msg:msg , act : 'Edit'
             }
         case "DELETE_CLIENT":
+            console.log(state.allClients);
+
             return {
-                ...state,allClients:JSON.parse(action.payload).data, msg:'Client deleted successfully!' , act: 'delete'
+                ...state,allClients:state.allClients.filter(territory => territory._id !== action.payload), msg:'Client deleted successfully!' , act: 'delete'
             }
         default:
             return{

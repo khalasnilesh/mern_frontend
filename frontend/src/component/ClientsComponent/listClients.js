@@ -64,6 +64,7 @@ class ListClientComponent extends React.Component {
       else{
         return(
         <div>
+            {this.props.msg}
         <table className="collection" border="1" >
             <tbody>
                 {

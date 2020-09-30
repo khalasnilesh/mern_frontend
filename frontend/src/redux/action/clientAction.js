@@ -36,21 +36,22 @@ export function getClient(allclients)
      }
 }
 
-export function deleteClient(allclients)
+export function deleteClient(clientId)
 {
+   // console.log(this.state);
     return {
         type : DELETE_CLIENT,
-        payload : allclients
+        payload : clientId
      }
 }
 
 export function editClient(clientData)
 {
- //console.log(JSON.parse(clientData).data[0]);
+ //console.log(JSON.parse(clientData).data);
 
     return {
         type : EDIT_CLIENT,
-        payload : clientData
+        payload : clientData,
      }
 }
 
