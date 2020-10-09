@@ -1,36 +1,51 @@
-const USER_TYPE = 'ADMIN'; 
-const INCREMENT = "INCREMENT";
-const DECREMENT = "DECREMENT";
-
 const initialState = {
-    total : 100,
-    actionInfo : 'Book Example' ,
+    isLoggedin : false,
+    userDetails : {username: '' , email : '' , role : ''} ,
+    msg : '',
+    allUsers: [],
+    email:'',
+    password:'',
+    action: 'Add',
+    _userId : ''
 
 }
 
-export default function Reducer1(state = initialState , action)
+export default function userReducer(state = initialState , action)
 {
-  //  console.log('inside reducer' + action.);
     switch(action.type) {
-        case 'INCREMENT':
+        case 'REGISTER_USER':
           return {
-            total: state.total + 1
+            ...state, msg: 'user register successfully!!!'
           };
-        case 'DECREMENT':
+        case 'GET_USERS':
+            return {
+              ...state, allUsers:JSON.parse(action.payload).data,  msg: ''
+            };
+        case 'ADD_USER':
           return {
-            total: state.total - 1
+            ...state, allUsers:JSON.parse(action.payload).data,  msg: JSON.parse(action.payload).message
           };
-        case 'RESET':
-          return {
-            total: 0
-          };
-        case 'ADMIN':
-          return {
-            total: state.total + 1
-          };
+          case 'EDIT_USER':
+            console.log(JSON.parse(action.payload).message);
+            return {
+              ...state, allUsers:JSON.parse(action.payload).data,  msg: JSON.parse(action.payload).message
+            };
+          case 'GET_USER_DETAILS':
+            return {
+              ...state, allUsers:JSON.parse(action.payload).data[0],  msg: '' , action  : 'Edit'
+            };
+            case "DELETE_USER":
+              console.log();
+            return {
+                ...state,allUsers:state.allClients.filter(territory => territory._id !== action.payload), msg:'User deleted successfully!' , act: 'delete'
+            }
+          case 'DB_ERROR':
+            return {
+              ...state, allUsers:JSON.parse(action.payload),  msg: JSON.parse(action.payload).message
+            };
         default:
           return state;
-      }
+      }  
 
     /* if(action.type === 'ADMIN') 
     { 

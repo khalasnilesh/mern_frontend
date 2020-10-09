@@ -3,7 +3,6 @@ import { useState  } from 'react';
 
 import {connect} from 'react-redux';
 import './UsersComponent.css';
-import {userShow , increment , decrement } from '../../redux/action/userAction'; 
 class UsersComponent extends Component {
 
   //const [number, setNumber] = useState(1)

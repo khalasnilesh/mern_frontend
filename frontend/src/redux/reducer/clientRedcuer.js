@@ -6,7 +6,12 @@ const initialState={
     id:'',
     msg:'',
     clientId : '',
-    action: ''
+    action: '',
+    clientName: '',
+    clientEmail: '',
+    clientAddress: '',
+    clientPhone: ''
+
 }
 
 export default function clientReducer(state = initialState , action)
@@ -19,6 +24,8 @@ export default function clientReducer(state = initialState , action)
                 ...state,clientDefaultName:action.payload,msg: JSON.parse(action.payload).message ,act: 'add'
             }
         case "FETCH_CLIENT":
+            console.log('22');
+
             return {
                 ...state,allClients:JSON.parse(action.payload).data, msg:'' , act: 'list'
             }

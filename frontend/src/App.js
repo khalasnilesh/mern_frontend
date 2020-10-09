@@ -7,14 +7,16 @@ import ClientComponent  from './component/ClientsComponent/clientComponent'
 import ListClientComponent  from './component/ClientsComponent/listClients'
 import HeaderComponent  from './component/header'
 import store from './redux/store';
-import HookContainer from './component/UsersComponent/HookContainer';
+
+import MainContainer from './component/MainContainer';
+
 import './App.css';
 
 function App() {
   return (
     <Provider store={store}>
     <div className="App">
-          <HeaderComponent></HeaderComponent>     
+          <MainContainer></MainContainer>     
     </div>
     </Provider>
   );

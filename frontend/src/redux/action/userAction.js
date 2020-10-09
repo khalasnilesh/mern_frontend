@@ -1,25 +1,50 @@
 
-
-const USER_TYPE = 'ADMIN'; 
- const INCREMENT = "INCREMENT";
- const DECREMENT = "DECREMENT";
- const defualtNumber = 5;
-export function userShow(defualtNumber = 5 )
+ const GET_USERS = 'GET_USERS'; 
+ const ADD_USER = 'ADD_USER'; 
+ const DB_ERROR = "DB_ERROR";
+ const EDIT_USER = "EDIT_USER";
+ const GET_USER_DETAILS = "GET_USER_DETAILS";
+ const DELETE_USER = "DELETE_USER";
+export function getUsers(users)
 {
     return {
-        type : USER_TYPE,
-        payload : defualtNumber
-
-        
+        type : GET_USERS,
+        payload : users
      }
 }
-export function increment(defualtNumber = 5) {
-    return { type: INCREMENT,
-      payload : defualtNumber };
-  }
-  
-export function decrement() {
-    return { type: DECREMENT };
-  }
+export function getUserDetails(userDetails)
+{
+  return {
+    type : GET_USER_DETAILS,
+    payload : userDetails
+ }
+}
 
-  
+export function AddUser(userdata)
+{
+  return {  type : ADD_USER,
+          payload : userdata
+  }
+}
+export function dbError(error)
+{
+    return {
+        type : DB_ERROR,
+        payload : error
+     }
+}
+export function EditUser(userdata)
+{
+  return {  
+    type : EDIT_USER,
+    payload : userdata
+  }
+}
+
+export function DeleteUser(userdata)
+{
+    return {  
+      type : DELETE_USER,
+      payload : userdata
+    }
+}

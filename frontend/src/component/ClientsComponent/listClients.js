@@ -1,6 +1,6 @@
 
 import React, { Fragment } from "react";
-import { Container,Row,Col,Form ,Button } from 'react-bootstrap';
+import { Container,Row,Col,Form ,Button , Table } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { listClientService , deleteClientService , editClientService } from "../../redux/services/clientServices";
 import { bindActionCreators } from 'redux';
@@ -45,7 +45,7 @@ class ListClientComponent extends React.Component {
     }
 
   render() {
-      console.log('client data:' + this.props.allClients);
+     // console.log('client data:' + this.props.allClients);
       /*   if(this.props.allClients)
         {   
             clientDetail = this.props.users.map((item) => <option key={item.id} value={item.id}>{item.name}</option>
@@ -62,32 +62,57 @@ class ListClientComponent extends React.Component {
           <p>No Client for today!</p>
       )
       else{
+        let count= 0;
+
         return(
         <div>
             {this.props.msg}
-        <table className="collection" border="1" >
+            {console.log(this.props.allClients)}
+        <Table striped bordered hover className="collection" border="1" >
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Client Name</th>
+                <th>Client Address</th>
+                <th>Client Phone</th>
+                <th>Client Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
             <tbody>
                 {
+                   
                     this.props.allClients.map(clientData=>{
+                        count = count + 1
+
                         return(
-                            <Fragment>
-                            <tr key={clientData.id}>
+                            <tr key={clientData.id} >
+                            <td className="todo" >
+                            {count}
+                            </td>
                             <td className="todo" >
                             {clientData.name}
                             </td>
-                            <td className="id" >
-                            {clientData.id}
+                            <td  >
+                            {clientData.address}
                             </td>
-                            <td> <button onClick={(id)=>{this.deleteClient(clientData.id)}}>X </button> </td>
-                            <td> <Link to={`/clients/editclient/${clientData.id}`} className="ui basic button green">Edit</Link>
+                            <td  >
+                            {clientData.phone}
+                            </td>
+                            <td >
+                            {clientData.email}
+                            </td>
+                           
+                            <td> <button onClick={(id)=>{this.deleteClient(clientData.id)}}>X </button> 
+                             <Link to={`/clients/editclient/${clientData.id}`} className="ui basic button green">Edit</Link>
 </td>
                             </tr> 
-                            </Fragment>
                         )  
-                    })
+
+                    } )
                 }
             </tbody>
-            </table>
+            </Table>
         </div>
         )
           }
@@ -95,7 +120,7 @@ class ListClientComponent extends React.Component {
 }
 
 function mapStateToProps(state){
-    //console.log(state.client.allClients);
+    console.log('33');
     return{
         msg: state.client.msg,
         allClients: state.client.allClients,

@@ -1,17 +1,39 @@
-import { addClient ,fetchClient,getClient,  deleteClient,editClient,  dbError} from '../action/clientAction';
+import { getUsers, loginUser , getUserDetails,  dbError ,AddUser ,EditUser , DeleteUser } from '../action/userAction';
 import { Redirect } from "react-router-dom";
 import { push , browserHistory } from "react-router-redux";
 
 
 const axios = require('axios');
 
+export function listUserService()
+{
+  return dispatch => {
+    var OPTIONS = {
+       url: "http://localhost:4000/users",
+       method: "POST",
+      // data:{name:clientName,password:'123456', email:'nilesh@gmail.com', status:'1' },
+       headers: {
+         "content-type": "application/json",
+         "Access-Control-Allow-Origin" : '*'
+       },
+     }
+       axios(OPTIONS)
+       .then(response  => {
+      //   console.log(JSON.stringify(response.data));
 
-export function addClientService(clientName,clientEmail,clientPhone,clientAddress) {
+       return  dispatch(getUsers(JSON.stringify(response.data)))
+       })
+       .catch(error => {
+           return  dispatch(dbError(error))
+       })
+   }
+}
+export function addUserService(email,password) {
     return dispatch => {
      var OPTIONS = {
-        url: "http://localhost:4000/clients/addclient",
+        url: "http://localhost:4000/users/register",
         method: "POST",
-        data:{name:clientName,password:'123456', email:clientEmail, status:'1',phone: clientPhone, address: clientAddress },
+        data:{username:new Date().getTime(),password:password, email:email, role:'3' },
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin" : '*'
@@ -19,11 +41,7 @@ export function addClientService(clientName,clientEmail,clientPhone,clientAddres
       }
         axios(OPTIONS)
         .then(response  => {
-          
-          dispatch(addClient(JSON.stringify(response.data)))
-          browserHistory.push('/');
-
-
+                dispatch(AddUser(JSON.stringify(response.data)))
         })
         .catch(error => {
             return  dispatch(dbError(error))
@@ -44,24 +62,21 @@ export function listClientService() {
       }
         axios(OPTIONS)
         .then(response  => {
-       //   console.log(JSON.stringify(response.data));
-       console.log('11');
-
-        return  dispatch(getClient(JSON.stringify(response.data)))
+        return  dispatch(getUsers(JSON.stringify(response.data)))
         })
         .catch(error => {
-            return  dispatch(dbError(error))
+          return  dispatch(dbError(error))
         })
     }
 }
-export function deleteClientService(clientId)
+export function deleteUserService(userId)
 {
    //console.log(this.props);
     return dispatch => {
         var OPTIONS = {
-           url: "http://localhost:4000/clients/deleteclient",
+           url: "http://localhost:4000/users/deleteuser",
            method: "POST",
-           data:{clientId:clientId },
+           data:{userId:userId },
            headers: {
              "content-type": "application/json",
              "Access-Control-Allow-Origin" : '*'
@@ -71,24 +86,24 @@ export function deleteClientService(clientId)
            .then(response  => {
            //return  dispatch(deleteClient(JSON.stringify(response.data)))
          //  console.log(this.state);
-          return  dispatch(deleteClient(clientId));
+          return  dispatch(DeleteUser(userId));
 
            })
            .catch(error => {
-               return  dispatch(dbError(error))
+        //       return  dispatch(dbError(error))
            })
        }
 }
 
 
 
-export function editClientService(clientId) {
-  console.log(clientId);
+export function getUserDetailService(userId) {
+  console.log(userId);
     return dispatch => {
      var OPTIONS = {
-        url: "http://localhost:4000/clients",
+        url: "http://localhost:4000/users/fetchuserbyId",
         method: "POST",
-        data:{clientId:clientId },
+        data:{userId:userId },
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin" : '*'
@@ -96,37 +111,35 @@ export function editClientService(clientId) {
       }
         axios(OPTIONS)
         .then(response  => {
-        return  dispatch(editClient(JSON.stringify(response.data)))
+         return  dispatch(getUserDetails(JSON.stringify(response.data)))
         })
         .catch(error => {
-            return  dispatch(dbError(error))
+     //       return  dispatch(dbError(error))
         })
     }
 }
 
 
-export function updateClientService(clientId, clientName,clientEmail,clientPhone,clientAddress) {
-   console.log(clientId, clientName,clientEmail,clientPhone,clientAddress);
+export function updateUserDetailService(userId, userEmail, userPassword) {
+    console.log('pass data to api ' + userId, userEmail, userPassword);
     return dispatch => {
      var OPTIONS = {
-        url: "http://localhost:4000/clients/updateclient",
+        url: "http://localhost:4000/users/updateprofile",
         method: "POST",
-        data:{clientId:clientId,name: clientName ,password:'123456',  email:clientEmail, status:'1',phone: clientPhone,
-         address: clientAddress },
+        data:{userId:userId,email: userEmail ,password:userPassword},
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin" : '*'
         },
       }
-
         axios(OPTIONS)
         .then(response  => {
           console.log(JSON.stringify(response.data));
          // listClientService();
-         return  dispatch(editClient(JSON.stringify(response.data)))
+         return  dispatch(EditUser(JSON.stringify(response.data)))
         })
         .catch(error => {
-            return  dispatch(dbError(error))
+      //      return  dispatch(dbError(error))
         })
     }
 }

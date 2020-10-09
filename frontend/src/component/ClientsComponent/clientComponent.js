@@ -12,7 +12,10 @@ class clientComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-          clientName: ''
+          clientName: '',
+          clientEmail : '',
+          clientAddress:'',
+          clientPhone:''
         }
     }
     handleChange=(e)=>{
@@ -21,8 +24,8 @@ class clientComponent extends React.Component {
         })
     }
     handleSubmit=(e)=>{
-       console.log(this.props);
-        this.props.addClientService(this.state.clientName);
+       console.log(this.state.clientAddress);
+       this.props.addClientService(this.state.clientName , this.state.clientEmail, this.state.clientPhone, this.state.clientAddress);
         e.preventDefault();
     }  
     
@@ -32,10 +35,49 @@ class clientComponent extends React.Component {
           <div>
               <h1>Client Register Form</h1>
               {this.props.msg}
-                <form onSubmit={this.handleSubmit}>
-                   <input type="text" defaultValue={this.props.clientDefaultName}  id="clientName"  onChange={this.handleChange}></input>
-                   <button className="btn green" onClick={this.handleSubmit}>Add Client</button>
-                </form>
+              <Container>
+               
+                <Form onSubmit={this.handleSubmit}>
+                <Row>
+                <Col>
+                <Form.Label>Enter Client Name </Form.Label>
+                </Col>
+                <Col>
+                <Form.Control type="text" defaultValue={this.props.clientDefaultName}  id="clientName"  onChange={this.handleChange}></Form.Control>
+                </Col>
+                </Row>
+                <Row>
+                <Col> <Form.Label>Enter Client Enmail</Form.Label> </Col>
+                <Col><Form.Control type="email" defaultValue={this.props.clientDefaultName}  id="clientEmail"  onChange={this.handleChange}></Form.Control></Col>
+                </Row> 
+                <Row>
+                <Col>
+                <Form.Label>Enter Client Phone </Form.Label>
+                </Col>
+                <Col>
+                <Form.Control type="text" defaultValue={this.props.clientDefaultName}  id="clientPhone"  onChange={this.handleChange}></Form.Control>
+                </Col>
+                </Row>
+                <Row>
+                <Col>
+                <Form.Label>Enter Client Address </Form.Label>
+                </Col>
+                <Col>
+                <Form.Control as="textarea" rows="3"  name="clientAddress" id="clientAddress" onChange={this.handleChange}>
+                   </Form.Control>
+                </Col>
+                </Row>
+
+                <Row>
+                <Col>
+                <Button className="btn green" onClick={this.handleSubmit}>Add Client</Button>
+                </Col>
+                </Row>
+
+                </Form>
+                   
+                
+                </Container>
           </div>
       )
   }
@@ -54,8 +96,8 @@ function mapStateToProps(state){
 const mapDispatchtoProps=(dispatch)=>{
     //console.log('1');
     return{
-        addClientService:function(clientName){
-        dispatch(addClientService(clientName));
+        addClientService:function(clientName,clientEmail,clientPhone,clientAddress){
+        dispatch(addClientService(clientName,clientEmail,clientPhone,clientAddress));
        }  
     }
    }
