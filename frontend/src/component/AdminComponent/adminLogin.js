@@ -45,9 +45,9 @@ function LoginContainer(props) {
    
 const mapStatetoProps=(state)=>{
    return{
-       username:state.user.username,
-      password:state.user.password,
-      msg:state.user.msg
+       username:state.admin.username,
+      password:state.admin.password,
+      msg:state.admin.msg
    }
   }
   

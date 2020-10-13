@@ -21,7 +21,7 @@ export function adminLogin(email,password)
        .then(response  => {
       //   console.log(JSON.stringify(response.data));
 
-       return  dispatch(logIn(response.data))
+       return dispatch(logIn(response.data))
        })
        .catch(error => {
            return  dispatch(dbError(error))

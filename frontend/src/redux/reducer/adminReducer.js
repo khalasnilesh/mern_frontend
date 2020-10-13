@@ -3,7 +3,8 @@ const initialState = {
     token : '',
     emailId : '',
     userId : '',
-    msg: ''   
+    msg: '' ,
+    loginUserDetails: ''  
 }
 
 export default function userReducer(state = initialState , action)
@@ -11,8 +12,15 @@ export default function userReducer(state = initialState , action)
     switch(action.type) {
         case 'LOGIN_USER':
           return {
-            ...state, msg: action.payload , isLoggedIn : action.isLoggedIn
+            ...state, msg: action.payload , isLoggedIn : action.isLoggedIn , loginUserDetails : action.loginUserDetails
           };
+        case 'SET_CURRENT_USER':
+        console.log('step#2' + action.payload);
+          return{
+            ...state,
+            loginUserDetails:action.payload,
+            isLoggedIn:true
+        }
         case 'REGISTER_USER':
             return {
               ...state, allUsers:JSON.parse(action.payload).data,  msg: ''
