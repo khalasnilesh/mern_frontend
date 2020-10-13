@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {Provider} from 'react-redux';
 import { BrowserRouter, Route, Link } from "react-router-dom";
-
+import setAuthenticationToken from './component/AdminComponent/setAuthenticationToken';
 import UsersComponent from './component/UsersComponent/UsersComponent'
 import ClientComponent  from './component/ClientsComponent/clientComponent'
 import ListClientComponent  from './component/ClientsComponent/listClients'

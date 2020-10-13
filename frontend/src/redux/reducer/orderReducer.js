@@ -1,32 +1,28 @@
 const initialState = {
     isLoggedin : false,
-    userDetails : {username: '' , email : '' , role : ''} ,
     msg : '',
-    allUsers: [],
-    email:'',
-    password:'',
+    allOrders: [],
     action: 'Add',
-    _userId : ''
+    _orderId : ''
 
 }
 
-export default function userReducer(state = initialState , action)
+export default function orderReducer(state = initialState , action)
 {
     switch(action.type) {
-        case 'REGISTER_USER':
+      case 'FETCH_ORDERS':
+        return {
+          ...state, allOrders:JSON.parse(action.payload).data,  msg: ''
+        };
+        case 'CREATE_ORDER':
           return {
-            ...state, msg: 'user register successfully!!!'
+            ...state, msg:JSON.parse(action.payload).message
           };
-        case 'GET_USERS':
-            return {
-              ...state, allUsers:JSON.parse(action.payload).data,  msg: ''
-            };
         case 'ADD_USER':
           return {
             ...state, allUsers:JSON.parse(action.payload).data,  msg: JSON.parse(action.payload).message
           };
           case 'EDIT_USER':
-            console.log(JSON.parse(action.payload).message);
             return {
               ...state, allUsers:JSON.parse(action.payload).data,  msg: JSON.parse(action.payload).message
             };
@@ -40,7 +36,7 @@ export default function userReducer(state = initialState , action)
             }
           case 'DB_ERROR':
             return {
-              ...state, allUsers:JSON.parse(action.payload),  msg: JSON.parse(action.payload).message
+              ...state, allOrders:JSON.parse(action.payload),  msg: JSON.parse(action.payload).message
             };
         default:
           return state;

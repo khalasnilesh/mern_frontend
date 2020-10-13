@@ -13,6 +13,8 @@ import userRegister from "./UsersComponent/userRegister";
 import userLogin from "./UsersComponent/userLogin";
 import userListing from "./UsersComponent/userListing";
 import userAdd from "./UsersComponent/userAdd";
+import ordersListing from "./OrdersComponent/listOrders";
+import orderAddEdit from "./OrdersComponent/orderAddEdit";
 
 class headerComponent extends React.Component {
     constructor(props) {
@@ -42,6 +44,10 @@ class headerComponent extends React.Component {
                   <Link to={'/users/'} className="dropdown-item"> List Users </Link>
                   <Link to={'/users/add'} className="dropdown-item">Add User </Link>
                 </NavDropdown>
+                <NavDropdown title="Orders Management" id="basic-nav-dropdown">
+                  <Link to={'/orders/'} className="dropdown-item"> List Orders </Link>
+                  <Link to={'/orders/add'} className="dropdown-item">Create User </Link>
+                </NavDropdown>
              </Nav>
              </Navbar.Collapse>
                 
@@ -54,6 +60,9 @@ class headerComponent extends React.Component {
              <Route exact path="/users/" component={ userListing } />
              <Route exact path="/users/add" component={userAdd } />
              <Route path="/users/editUser/:_userId" component={userAdd}/>
+             <Route exact path="/orders/" component={ ordersListing } />
+             <Route exact path="/orders/add" component={orderAddEdit } />
+             <Route path="/orders/editOrder/:_orderId" component={orderAddEdit}/>
              
 
              </Switch>

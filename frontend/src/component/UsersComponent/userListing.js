@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 
 import { Table,Button } from 'react-bootstrap';
 
+import {connect} from 'react-redux';
+
+
 function userListing(props) {
    // const user_id = useSelector(state=>state.user.userDetails.userid);
     const dispatch = useDispatch();
@@ -42,7 +45,7 @@ function userListing(props) {
    }
     
     return (
-        <div>    <p> 111 {props.msg}</p>
+        <div>    <p>  {props.msg}</p>
 
             <h1>All Users</h1>
             <Table striped bordered hover size="sm">
@@ -67,7 +70,7 @@ function userListing(props) {
 }
 
 const mapStatetoProps=(state)=>{
-    console.log('reutrn back'+state.user);
+    console.log('reutrn back'+state.user.msg);
   return{
     allUsers:state.user.allUsers,
     msg : state.user.msg
@@ -83,4 +86,4 @@ const mapDispatchtoProps=(dispatch)=>{
      }  
   }
  }
-export default (userListing);
+export default connect(mapStatetoProps,mapDispatchtoProps)(userListing);
