@@ -4,7 +4,7 @@ const initialState = {
     emailId : '',
     userId : '',
     msg: '' ,
-    loginUserDetails: ''  
+    loginUserDetails: {}
 }
 
 export default function userReducer(state = initialState , action)
@@ -25,6 +25,13 @@ export default function userReducer(state = initialState , action)
             return {
               ...state, allUsers:JSON.parse(action.payload).data,  msg: ''
             };
+        case 'ADMIN_LOGOUT':
+              return {
+                ...state,
+                loginUserDetails:action.payload,
+                isLoggedIn:false,
+                msg: 'Admin LogOut Successfully!!'
+              };
           case 'DB_ERROR':
             return {
               ...state, allUsers:JSON.parse(action.payload),  msg: JSON.parse(action.payload).message

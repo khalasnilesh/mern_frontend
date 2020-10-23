@@ -1,4 +1,4 @@
-import { logIn, register , dbError } from '../action/adminAction';
+import { logIn, register , dbError  , adminLogOut} from '../action/adminAction';
 import { Redirect } from "react-router-dom";
 import { push , browserHistory } from "react-router-redux";
 
@@ -26,5 +26,14 @@ export function adminLogin(email,password)
        .catch(error => {
            return  dispatch(dbError(error))
        })
+   }
+}
+
+
+
+export default function adminlogut(token)
+{
+  return dispatch => {
+    dispatch(adminLogOut())
    }
 }

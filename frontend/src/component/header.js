@@ -1,4 +1,6 @@
 import React from "react";
+import {connect} from 'react-redux';
+
 import { Container,Row,Col,Form ,Button , Table} from 'react-bootstrap';
 import { Navbar,Nav,NavDropdown } from 'react-bootstrap';
 
@@ -15,7 +17,9 @@ import userListing from "./UsersComponent/userListing";
 import userAdd from "./UsersComponent/userAdd";
 import ordersListing from "./OrdersComponent/listOrders";
 import orderAddEdit from "./OrdersComponent/orderAddEdit";
+import adminlogut from "../redux/services/adminServices";
 
+  
 class headerComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -49,6 +53,13 @@ class headerComponent extends React.Component {
                   <Link to={'/orders/add'} className="dropdown-item">Create User </Link>
                 </NavDropdown>
              </Nav>
+             <Nav className="mr-auto right">
+             <div> </div>
+                <NavDropdown title={ 'Welcome, ' + this.props.loginUserDetails.email }  id="basic-nav-dropdown">
+                <Link to="#"   className="dropdown-item" role="button" onClick={()=>this.props.adminLogOut()} > Log Out</Link>
+                </NavDropdown>
+               </Nav>
+
              </Navbar.Collapse>
                 
             </Navbar> 
@@ -74,4 +85,21 @@ class headerComponent extends React.Component {
 }
 
 
-export default headerComponent;
+const mapStatetoProps=(state)=>{
+  console.log('token disclosure' + state.admin.loginUserDetails);
+  return{
+    loginUserDetails:state.admin.loginUserDetails,
+    
+  }
+ }
+
+ const mapDispatchtoProps=(dispatch)=>{
+  return{
+     
+    adminLogOut:function(email,password){
+      dispatch(adminlogut(email,password));
+  },
+     
+  }
+ }
+export default connect(mapStatetoProps,mapDispatchtoProps)(headerComponent);

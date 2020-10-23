@@ -1,8 +1,13 @@
  import setAuthenticationToken from './setAuthenticationToken';
+ import jwt from "jsonwebtoken"; 
+
  const LOGIN_USER = 'LOGIN_USER'; 
  const REGISTER_USER = 'REGISTER_USER'; 
+ const ADMIN_LOGOUT = 'ADMIN_LOGOUT'; 
+
  const DB_ERROR = "DB_ERROR";
  const SET_CURRENT_USER = "SET_CURRENT_USER";
+
 export function logIn(userdata)
 {
     console.log(userdata.message);
@@ -10,16 +15,16 @@ export function logIn(userdata)
     {
       const token= userdata.token;
       localStorage.setItem("jwtToken",token);
-      setAuthenticationToken(token);
-      setCurrentUser(token);
-
+      setAuthenticationToken(jwt.decode(token));
+      setCurrentUser(jwt.decode(token));
+      console.log(jwt.decode(token));
 
       return {
         type : LOGIN_USER,
         payload : userdata.message,
         isLoggedIn:true,
-        loginUserDetails : token
-
+        loginUserDetails : jwt.decode(token)
+ 
      }  
     }
     else
@@ -42,7 +47,15 @@ export function register(users)
      }
 }
 
-
+export function adminLogOut(users){
+  localStorage.removeItem('jwtToken');
+  setAuthenticationToken(false);
+  setCurrentUser();
+  return {
+    type : ADMIN_LOGOUT,
+    payload : false
+ }
+}
 export function dbError(error)
 {
     return {

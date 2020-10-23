@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import jwt from "jsonwebtoken";
+
 import {Provider} from 'react-redux';
 import { BrowserRouter, Route, Link } from "react-router-dom";
 import setAuthenticationToken from './redux/action/setAuthenticationToken';
@@ -19,7 +21,23 @@ function App() {
   if(localStorage.jwtToken)
   {
     setAuthenticationToken(localStorage.jwtToken);
-    store.dispatch(setCurrentUser(localStorage.jwtToken));
+    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+
+    jwt.verify(localStorage.jwtToken, 'AdminSecret', function(err, decode) {
+      if (err) {
+        console.log(err);
+        /*
+          err = {
+            name: 'TokenExpiredError',
+            message: 'jwt expired',
+            expiredAt: 1408621000
+          }
+        */
+      }
+      else{
+        console.log('Check expire : ' + decode.email);
+      }
+    });
   }
 
   return (

@@ -27,7 +27,7 @@ function AdminRegister(props) {
    <Form.Control type="password" defaultValue={props.password} onChange={e=>setPassword(e.target.value)} />
  
  </Form.Group>
- <p><a href="/signup">Create New Account</a></p>
+ <p><a href="/">Create New Account</a></p>
  <Button variant="primary" onClick={()=>props.loginUser(username,password)}>Login</Button>
  </Form>
   </Col>

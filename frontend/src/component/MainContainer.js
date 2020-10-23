@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import HeaderComponent from './header'; 
 import AdminLogin from './AdminComponent/adminLogin';
+import AdminRegister from './AdminComponent/adminRegister';
 
 function MainContainer(props) {
    
@@ -14,8 +15,7 @@ function MainContainer(props) {
         {
             return (
                 <>
-               
-                <h1>11Main Container</h1>
+                <h1>Main Container</h1>
                 <HeaderComponent>
                 </HeaderComponent>
                 <div>Footer</div>
@@ -24,16 +24,20 @@ function MainContainer(props) {
         }
         else
         {
+            console.log('Login Register');
             return (
-                <>
-                    <AdminLogin />
+                <>  
+                    <Router>
+                        <Route exact path="/" component={AdminLogin} />
+                        <Route exact path="/AdminRegister" component={AdminRegister} />
+                    </Router>
                 </>
              )
         }
        
 }
 const mapStatetoProps=(state)=>{
-    console.log(state.admin);
+    console.log(state.admin.isLoggedIn);
     return{
     isLoggedIn:state.admin.isLoggedIn,
     msg:state.admin.msg

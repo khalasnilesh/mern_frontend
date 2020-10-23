@@ -28,7 +28,7 @@ function LoginContainer(props) {
    <Form.Control type="password" defaultValue={props.password} onChange={e=>setPassword(e.target.value)} />
  
  </Form.Group>
- <p><a href="/signup">Create New Account</a></p>
+ <p><a href="/AdminRegister">Create New Account</a></p>
  <Button variant="primary" onClick={()=>props.adminLogin(email,password)}>Login</Button>
  </Form>
   </Col>
