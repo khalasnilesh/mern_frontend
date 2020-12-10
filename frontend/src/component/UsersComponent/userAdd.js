@@ -7,6 +7,10 @@ import { Container,Row,Col,Form ,Button} from 'react-bootstrap';
 
  function userAdd(props)
 {
+    const loginuserId = useSelector(state=>state.admin.loginUserDetails.id);
+
+   // console.log(loginuserId);
+
     const [userEmail, setuserEmail] = useState('');
 
     const [userPassword, setuserPassword] = useState('');
@@ -23,7 +27,7 @@ import { Container,Row,Col,Form ,Button} from 'react-bootstrap';
     }
 
     if(props.action==='Add'){
-        var actionButton=<Button variant="primary" onClick={()=>props.addUserService(userEmail,userPassword)}>Add User</Button>;
+        var actionButton=<Button variant="primary" onClick={()=>props.addUserService(userEmail,userPassword , loginuserId)}>Add User</Button>;
             }else{
          actionButton=<Button variant="primary" onClick={()=>props.updateUserDetailService(props.userId,userEmail,userPassword)}>Update User</Button>;  
             }
@@ -67,8 +71,8 @@ const mapStatetoProps=(state)=>{
    
    const mapDispatchtoProps=(dispatch)=>{
     return{
-        addUserService:function(email,password){
-           dispatch(addUserService(email,password));
+        addUserService:function(email,password, loginuserId){
+           dispatch(addUserService(email,password , loginuserId));
        },
        updateUserDetailService:function(userId,userEmail,userPassword){
            dispatch(updateUserDetailService(userId,userEmail,userPassword));

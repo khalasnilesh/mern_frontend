@@ -10,12 +10,13 @@
 
 export function logIn(userdata)
 {
-    console.log(userdata.message);
+    //console.log(userdata.message);
     if(userdata.message === 'correct details!!')
     {
       const token= userdata.token;
       localStorage.setItem("jwtToken",token);
-      setAuthenticationToken(jwt.decode(token));
+      console.log(jwt.decode(token));
+      setAuthenticationToken(token);
       setCurrentUser(jwt.decode(token));
       console.log(jwt.decode(token));
 
@@ -25,7 +26,7 @@ export function logIn(userdata)
         isLoggedIn:true,
         loginUserDetails : jwt.decode(token)
  
-     }  
+     }   
     }
     else
     {

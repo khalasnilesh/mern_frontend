@@ -25,12 +25,10 @@ export default function clientReducer(state = initialState , action)
             }
         case "FETCH_CLIENT":
             console.log('22');
-
             return {
                 ...state,allClients:JSON.parse(action.payload).data, msg:'' , act: 'list'
             }
         case "EDIT_CLIENT":
-            
             if(JSON.parse(action.payload).message != 'CLient data listing successfully!!')
             {
               var  msg = 'Profile Updated Successfully';

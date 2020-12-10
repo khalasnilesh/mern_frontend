@@ -24,7 +24,7 @@ function MainContainer(props) {
         }
         else
         {
-            console.log('Login Register');
+           // console.log('Login Register');
             return (
                 <>  
                     <Router>
@@ -37,7 +37,7 @@ function MainContainer(props) {
        
 }
 const mapStatetoProps=(state)=>{
-    console.log(state.admin.isLoggedIn);
+   // console.log(state.admin.isLoggedIn);
     return{
     isLoggedIn:state.admin.isLoggedIn,
     msg:state.admin.msg

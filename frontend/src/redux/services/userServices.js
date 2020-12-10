@@ -28,12 +28,12 @@ export function listUserService()
        })
    }
 }
-export function addUserService(email,password) {
+export function addUserService(email,password, loginuserId) {
     return dispatch => {
      var OPTIONS = {
         url: "http://localhost:4000/users/register",
         method: "POST",
-        data:{username:new Date().getTime(),password:password, email:email, role:'3' },
+        data:{username:new Date().getTime(),password:password, email:email, role:'3' , loginuserId : loginuserId },
         headers: {
           "content-type": "application/json",
           "Access-Control-Allow-Origin" : '*'

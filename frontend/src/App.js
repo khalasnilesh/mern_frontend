@@ -8,7 +8,7 @@ import UsersComponent from './component/UsersComponent/UsersComponent'
 import ClientComponent  from './component/ClientsComponent/clientComponent'
 import ListClientComponent  from './component/ClientsComponent/listClients'
 import HeaderComponent  from './component/header'
-import {setCurrentUser,logout} from "./redux/action/adminAction"
+import {setCurrentUser,adminLogOut} from "./redux/action/adminAction"
 
 import store from './redux/store';
 
@@ -20,12 +20,12 @@ function App() {
 
   if(localStorage.jwtToken)
   {
+    console.log('local token' + localStorage.jwtToken);
     setAuthenticationToken(localStorage.jwtToken);
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 
     jwt.verify(localStorage.jwtToken, 'AdminSecret', function(err, decode) {
       if (err) {
-        console.log(err);
+        console.log('token Expire');
         /*
           err = {
             name: 'TokenExpiredError',
@@ -33,12 +33,15 @@ function App() {
             expiredAt: 1408621000
           }
         */
+       store.dispatch(adminLogOut());
       }
       else{
-        console.log('Check expire : ' + decode.email);
-      }
+     //   console.log('Check still working : ' + decode);
+        store.dispatch(setCurrentUser(decode));
+            }
     });
   }
+  
 
   return (
     <Provider store={store}>

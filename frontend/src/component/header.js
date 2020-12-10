@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import { Container,Row,Col,Form ,Button , Table} from 'react-bootstrap';
 import { Navbar,Nav,NavDropdown } from 'react-bootstrap';
 
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch , Redirect ,useHistory   } from "react-router-dom";
 
 import { bindActionCreators } from 'redux';
 import { editClientaction } from "../redux/action/clientAction";
@@ -17,12 +17,19 @@ import userListing from "./UsersComponent/userListing";
 import userAdd from "./UsersComponent/userAdd";
 import ordersListing from "./OrdersComponent/listOrders";
 import orderAddEdit from "./OrdersComponent/orderAddEdit";
+import adminProfile from "./AdminComponent/adminProfile";
 import adminlogut from "../redux/services/adminServices";
+import { withRouter } from 'react-router';
+
 
   
 class headerComponent extends React.Component {
     constructor(props) {
+
+
         super(props);
+      //  const history = useHistory();
+
         this.state = {
           clientName: ''
         }
@@ -57,6 +64,7 @@ class headerComponent extends React.Component {
              <div> </div>
                 <NavDropdown title={ 'Welcome, ' + this.props.loginUserDetails.email }  id="basic-nav-dropdown">
                 <Link to="#"   className="dropdown-item" role="button" onClick={()=>this.props.adminLogOut()} > Log Out</Link>
+                <Link to="/manageProfile"   className="dropdown-item" >Manage Profile</Link>
                 </NavDropdown>
                </Nav>
 
@@ -75,7 +83,7 @@ class headerComponent extends React.Component {
              <Route exact path="/orders/add" component={orderAddEdit } />
              <Route path="/orders/editOrder/:_orderId" component={orderAddEdit}/>
              
-
+             <Route path="/manageProfile" component={adminProfile}/>
              </Switch>
              </Router>
              
@@ -94,10 +102,20 @@ const mapStatetoProps=(state)=>{
  }
 
  const mapDispatchtoProps=(dispatch)=>{
+
+  //const history = useHistory();
+
   return{
      
     adminLogOut:function(email,password){
       dispatch(adminlogut(email,password));
+      window.location.href = '/';
+     // this.props.router.replace('/');
+
+   //history.push("/home");
+   //this.history.push("/login");
+
+
   },
      
   }

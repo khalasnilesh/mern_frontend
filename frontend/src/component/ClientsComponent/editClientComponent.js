@@ -37,7 +37,7 @@ class editClientComponent extends React.Component {
           console.log(this.state.clientEmail);
           console.log(this.state.clientPhone);
           console.log(this.state.clientAddress);
-            this.props.updateClientService(this.props.allClients.id, this.state.clientName , this.state.clientEmail, this.state.clientPhone, this.state.clientAddress);
+          //  this.props.updateClientService(this.props.allClients.id, this.state.clientName , this.state.clientEmail, this.state.clientPhone, this.state.clientAddress);
           e.preventDefault();
     }  
     
@@ -45,7 +45,7 @@ class editClientComponent extends React.Component {
   render() {
    //console.log(this.props.allClients.address);
     //  var clientData = this.props.allClients[0];
-     // console.log(this.state.clientName);
+     console.log(this.state);
       return(
           <div>
               <h1>Edit Client Details</h1>
@@ -99,7 +99,7 @@ class editClientComponent extends React.Component {
 
 
 function mapStateToProps(state){
-   //console.log(state);
+   console.log(state);
     return{
         msg: state.client.msg,        
         allClients: state.client.allClients,
